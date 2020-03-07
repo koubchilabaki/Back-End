@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="spi-dosi">
+		<class>com.dosi.models.Authentification</class>
+		<class>com.dosi.models.Candidat</class>
+		<class>com.dosi.models.CgRefCode</class>
+		<class>com.dosi.models.Droit</class>
+		<class>com.dosi.models.DroitPK</class>
+		<class>com.dosi.models.ElementConstitutif</class>
+		<class>com.dosi.models.ElementConstitutifPK</class>
+		<class>com.dosi.models.Enseignant</class>
+		<class>com.dosi.models.Etudiant</class>
+		<class>com.dosi.models.Evaluation</class>
+		<class>com.dosi.models.Formation</class>
+		<class>com.dosi.models.Promotion</class>
+		<class>com.dosi.models.PromotionPK</class>
+		<class>com.dosi.models.Qualificatif</class>
+		<class>com.dosi.models.Question</class>
+		<class>com.dosi.models.QuestionEvaluation</class>
+		<class>com.dosi.models.ReponseEvaluation</class>
+		<class>com.dosi.models.ReponseQuestion</class>
+		<class>com.dosi.models.ReponseQuestionPK</class>
+		<class>com.dosi.models.Rubrique</class>
+		<class>com.dosi.models.RubriqueEvaluation</class>
+		<class>com.dosi.models.RubriqueQuestion</class>
+		<class>com.dosi.models.RubriqueQuestionPK</class>
+		<class>com.dosi.models.UniteEnseignement</class>
+		<class>com.dosi.models.UniteEnseignementPK</class>
+	</persistence-unit>
+</persistence>
