@@ -14,8 +14,8 @@ public class Qualificatif implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "SequenceIdGenerator", sequenceName = "QUA_SEQ",allocationSize=1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceIdGenerator")
+	@SequenceGenerator(name = "SequenceIdGeneratorQualificatif", sequenceName = "QUA_SEQ",allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceIdGeneratorQualificatif")
 	@Column(name="ID_QUALIFICATIF")
 	private long idQualificatif;
 
@@ -26,6 +26,19 @@ public class Qualificatif implements Serializable {
 	public Qualificatif() {
 	}
 
+	public Qualificatif(String maximal, String minimal) {
+		super();
+		this.maximal = maximal;
+		this.minimal = minimal;
+	}
+	
+	public Qualificatif(long idQualificatif, String maximal, String minimal) {
+		super();
+		this.idQualificatif = idQualificatif;
+		this.maximal = maximal;
+		this.minimal = minimal;
+	}
+	
 	public long getIdQualificatif() {
 		return this.idQualificatif;
 	}
@@ -44,13 +57,6 @@ public class Qualificatif implements Serializable {
 
 	public String getMinimal() {
 		return this.minimal;
-	}
-
-	public Qualificatif(long idQualificatif, String maximal, String minimal) {
-		super();
-		this.idQualificatif = idQualificatif;
-		this.maximal = maximal;
-		this.minimal = minimal;
 	}
 
 	public void setMinimal(String minimal) {

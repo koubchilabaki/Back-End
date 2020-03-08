@@ -30,11 +30,14 @@ public class MainClass{
     }
     
 	
+	
 	/*
-	 * @Bean public CommandLineRunner userDemo(QualificatifRepository qRepository) {
-	 * return (args) -> { //qRepository.save(new Qualificatif(25L,"aaa","dddd"));
+	 * @Bean public CommandLineRunner qualificatifDemo(QualificatifRepository
+	 * qualificatifRepository) { return (args) -> { qualificatifRepository.save(new
+	 * Qualificatif("2597aaa","dddd"));
 	 * 
 	 * }; }
 	 */
+	 
 	 
 }

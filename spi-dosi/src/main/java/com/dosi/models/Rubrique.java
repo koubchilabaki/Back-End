@@ -15,8 +15,8 @@ public class Rubrique implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "SequenceIdGenerator", sequenceName = "RUB_SEQ",allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceIdGenerator")
+	@SequenceGenerator(name = "SequenceIdGeneratorRubrique", sequenceName = "RUB_SEQ",allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceIdGeneratorRubrique")
 	@Column(name="ID_RUBRIQUE")
 	private long idRubrique;
 

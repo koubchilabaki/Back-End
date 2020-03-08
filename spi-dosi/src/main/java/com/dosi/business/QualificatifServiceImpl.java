@@ -19,18 +19,48 @@ public class QualificatifServiceImpl implements QualificatifService {
 		this.qualificatifRepository = qualificatifRepository;
 	}
 
-	// fonction qui ajoute un qualificatif
 	@Override
-	public Qualificatif createQualificatif(Qualificatif qual) {
-		return qualificatifRepository.save(qual);
-	}
-
-	// fonction qui cherche tous les qualificatifs
-	@Override
-	public List<Qualificatif> GetAllQualificatifs() {
+	public List<Qualificatif> getAllQualificatifs() {
 		// TODO Auto-generated method stub
 		return (List<Qualificatif>) qualificatifRepository.findAll();
 	}
+
+	@Override
+	public Qualificatif createQualificatif(Qualificatif qualificatif) {
+		// TODO Auto-generated method stub
+		return qualificatifRepository.save(qualificatif);
+	}
+
+	@Override
+	public Qualificatif updateQualificatif(Qualificatif qualificatif) {
+		// TODO Auto-generated method stub
+		Qualificatif lequalificatif = (Qualificatif) qualificatifRepository.findById(Long.valueOf(qualificatif.getIdQualificatif())).orElse(null);
+		lequalificatif.setMaximal(qualificatif.getMaximal());
+		lequalificatif.setMinimal(qualificatif.getMinimal());
+		qualificatifRepository.save(lequalificatif);
+		return lequalificatif;
+	}
+
+	@Override
+	public void deleteQualificatif(Integer idQualificatif) {
+		Qualificatif qualificatif = qualificatifRepository.findById(Long.valueOf(idQualificatif)).orElse(null);
+		qualificatifRepository.delete(qualificatif);	
+	}
+
+	@Override
+	public Qualificatif findQualificatifById(Integer idQualificatif) {
+		// TODO Auto-generated method stub
+		
+		return qualificatifRepository.findById(Long.valueOf(idQualificatif)).orElse(null);
+
+	}
+
+	@Override
+	public boolean findIfIdQualificatifExistsInReponse(Integer idQualificatif) {
+		return qualificatifRepository.findIfIdQualificatifExistsInReponse(idQualificatif).isEmpty();
+	}
+
+
 
 
 

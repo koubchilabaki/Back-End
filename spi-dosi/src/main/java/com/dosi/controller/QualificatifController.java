@@ -3,7 +3,11 @@ package com.dosi.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +32,49 @@ public class QualificatifController {
 	// fonction qui retourne tous les qualificatifs
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Qualificatif> getAllQualificatifs() {
-		return service.GetAllQualificatifs();
+		return service.getAllQualificatifs();
 	}
+
+	@RequestMapping(value = "/liste", method = RequestMethod.GET)
+	public List<Qualificatif> ggetAllQualificatifs() {
+		return service.getAllQualificatifs();
+	}
+	
+	// fonction qui crée un qualificatif  
+	@RequestMapping(method = RequestMethod.POST)
+	public Qualificatif createQualificatif(@RequestBody Qualificatif qualificatif) {
+		return service.createQualificatif(qualificatif);
+
+	}
+
+	// fonction qui modifie un qualificatif 
+	@RequestMapping(method = RequestMethod.PUT)
+	public Qualificatif updateQualificatif(@RequestBody Qualificatif qualificatif) {
+		return service.updateQualificatif(qualificatif);
+	}
+	
+	// fonction qui supprime un qualificatif
+	@RequestMapping(method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteQualificatifById(@RequestBody Qualificatif qualificatif) {
+		
+		Integer id = (int) (long) qualificatif.getIdQualificatif();
+		if (!service.findIfIdQualificatifExistsInReponse(id) ){
+			HttpHeaders responseHeaders = new HttpHeaders();
+			responseHeaders.set("Contenu", "Le Qualificatif est utilisé dans une question !");
+			service.deleteQualificatif(id);
+			return (ResponseEntity<?>) ResponseEntity.ok().headers(responseHeaders).build();
+		} else {
+			service.deleteQualificatif(id);
+			return ResponseEntity.ok().build();
+		}
+	}	
+	
+	/*
+	 * @RequestMapping(value = "/test", method = RequestMethod.POST) public
+	 * ResponseEntity<Object> createProduct(@RequestBody Qualificatif qualificatif)
+	 * { return new
+	 * ResponseEntity<>("Product is created successfully",HttpStatus.CREATED); }
+	 */
+	 
 	
 }
