@@ -57,16 +57,17 @@ public class QualificatifController {
 	@RequestMapping(method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteQualificatifById(@RequestBody Qualificatif qualificatif) {
 		
+		String reponse = "";
+		
 		Integer id = (int) (long) qualificatif.getIdQualificatif();
-		if (!service.findIfIdQualificatifExistsInReponse(id) ){
-			HttpHeaders responseHeaders = new HttpHeaders();
-			responseHeaders.set("Contenu", "Le Qualificatif est utilisé dans une question !");
-			service.deleteQualificatif(id);
-			return (ResponseEntity<?>) ResponseEntity.ok().headers(responseHeaders).build();
-		} else {
-			service.deleteQualificatif(id);
-			return ResponseEntity.ok().build();
+		
+		if(service.deleteQualificatif(id)) {
+			reponse = "Suppression effectuée avec succées";
 		}
+		else
+			reponse = "Suppression non effectuée : Le Qualificatif est utilisé dans une question !";
+
+		return ResponseEntity.accepted().body(reponse);
 	}	
 	
 	/*
