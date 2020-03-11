@@ -15,14 +15,13 @@ public interface QualificatifService {
 	public Qualificatif updateQualificatif(Qualificatif qualificatif);
 	
 	// fonction qui supprime un qualificatif
-	void deleteQualificatif(Integer idQualificatif);
+	boolean deleteQualificatif(Integer idQualificatif);
 
 	// fonction qui cherche un qualificatif
 	public Qualificatif findQualificatifById(Integer idQualificatif);
 
-
-	// fonction qui vérifie si un qualificatif exsite dans une réponse
 	public boolean findIfIdQualificatifExistsInReponse(Integer idQualificatif);
+
 
 
 

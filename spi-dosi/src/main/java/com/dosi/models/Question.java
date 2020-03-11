@@ -17,7 +17,7 @@ public class Question implements Serializable {
 	@Id
 	@SequenceGenerator(name = "SequenceIdGeneratorQuestion", sequenceName = "QUE_SEQ",allocationSize=1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceIdGeneratorQuestion")
-	@Column(name="ID_QUESTION", insertable=false, updatable=false)
+	@Column(name="ID_QUESTION")
 	private long idQuestion;
 
 	private String intitule;
@@ -26,15 +26,33 @@ public class Question implements Serializable {
 	private String type;
 	//uni-directional many-to-one association to Enseignant
 	@ManyToOne
-	@JoinColumn(name="NO_ENSEIGNANT", insertable=false, updatable=false)
+	@JoinColumn(name="NO_ENSEIGNANT")
 	private Enseignant enseignantt;
 
 	//uni-directional many-to-one association to Qualificatif
-	@ManyToOne(cascade = CascadeType.ALL)
+	//@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="ID_QUALIFICATIF",referencedColumnName = "ID_QUALIFICATIF")
-	private Qualificatif qualificatiff;
+	private Qualificatif qualificatif;
 
 	public Question() {
+	}
+
+	public Question(String intitule, String type, Enseignant enseignantt, Qualificatif qualificatif) {
+		super();
+		this.intitule = intitule;
+		this.type = type;
+		this.enseignantt = enseignantt;
+		this.qualificatif = qualificatif;
+	}
+
+	public Question(long idQuestion, String intitule, String type, Enseignant enseignantt, Qualificatif qualificatiff) {
+		super();
+		this.idQuestion = idQuestion;
+		this.intitule = intitule;
+		this.type = type;
+		this.enseignantt = enseignantt;
+		this.qualificatif = qualificatif;
 	}
 
 	public long getIdQuestion() {
@@ -69,13 +87,13 @@ public class Question implements Serializable {
 		this.enseignantt = enseignantt;
 	}
 
-	public Qualificatif getQualificatiff() {
-		qualificatiff.setIdQualificatif(2);
-		return this.qualificatiff;
+	public Qualificatif getQualificatif() {
+		qualificatif.setIdQualificatif(2);
+		return this.qualificatif;
 	}
 
-	public void setQualificatiff(Qualificatif qualificatiff) {
-		this.qualificatiff = qualificatiff;
+	public void setQualificatiff(Qualificatif qualificatif) {
+		this.qualificatif = qualificatif;
 	}
 
 }

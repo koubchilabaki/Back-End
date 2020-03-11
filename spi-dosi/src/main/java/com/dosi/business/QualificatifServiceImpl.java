@@ -22,7 +22,7 @@ public class QualificatifServiceImpl implements QualificatifService {
 	@Override
 	public List<Qualificatif> getAllQualificatifs() {
 		// TODO Auto-generated method stub
-		return (List<Qualificatif>) qualificatifRepository.findAll();
+		return (List<Qualificatif>) qualificatifRepository.findAllOrdered();
 	}
 
 	@Override
@@ -42,9 +42,20 @@ public class QualificatifServiceImpl implements QualificatifService {
 	}
 
 	@Override
-	public void deleteQualificatif(Integer idQualificatif) {
-		Qualificatif qualificatif = qualificatifRepository.findById(Long.valueOf(idQualificatif)).orElse(null);
-		qualificatifRepository.delete(qualificatif);	
+	public boolean deleteQualificatif(Integer idQualificatif) {
+		
+		boolean test = false;
+		System.out.println("id : "+idQualificatif);
+		int nb = qualificatifRepository.countIfIdQualificatifInQuestion(idQualificatif);
+		System.out.println("nb:"+nb);
+		
+		 if(nb==0) { 
+			  Qualificatif qualificatif= qualificatifRepository.findById(Long.valueOf(idQualificatif)).orElse(null);
+			  qualificatifRepository.delete(qualificatif); 
+			  test = true; 
+		  }
+
+		return test;
 	}
 
 	@Override
@@ -55,12 +66,11 @@ public class QualificatifServiceImpl implements QualificatifService {
 
 	}
 
+
 	@Override
 	public boolean findIfIdQualificatifExistsInReponse(Integer idQualificatif) {
 		return qualificatifRepository.findIfIdQualificatifExistsInReponse(idQualificatif).isEmpty();
 	}
-
-
 
 
 

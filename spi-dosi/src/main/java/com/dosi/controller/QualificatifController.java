@@ -46,18 +46,21 @@ public class QualificatifController {
 	
 	// fonction qui supprime un qualificatif
 	@PostMapping(value = "/deleteQual")
-	public boolean deleteQualificatifById(@RequestBody Qualificatif qualificatif) {
-		
+	public ResponseEntity<?> deleteQualificatifById(@RequestBody Qualificatif qualificatif) {
+		String reponse = "";
 		Integer id = (int) (long) qualificatif.getIdQualificatif();
 		if (!service.findIfIdQualificatifExistsInReponse(id) ){
 			//HttpHeaders responseHeaders = new HttpHeaders();
 			//responseHeaders.set("Contenu", "Le Qualificatif est utilisé dans une question !");
 			//service.deleteQualificatif(id);
+			reponse = "Suppression effectuée avec succées";
+			System.out.println(reponse);
 			throw new RuntimeException("Ce qualificatif est utilisé dans une question");
 		} else {
+			reponse = "Suppression non effectuée : Le Qualificatif est utilisé dans une question !";
 			service.deleteQualificatif(id);
-			return true;
 		}
+		return ResponseEntity.accepted().body(reponse);
 	}	
 	
 	/*

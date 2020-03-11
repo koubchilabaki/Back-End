@@ -1,4 +1,4 @@
-package com.dosi.models;
+ package com.dosi.models;
 
 import java.io.Serializable;
 import javax.persistence.*;
