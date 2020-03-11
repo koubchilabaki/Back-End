@@ -6,11 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.dosi.business.QualificatifService;
 import com.dosi.business.QualificatifServiceImpl;
@@ -21,51 +17,46 @@ import com.dosi.models.Qualificatif;
 @CrossOrigin
 @RequestMapping("/qualificatifs")
 public class QualificatifController {
-
+	@Autowired
 	private QualificatifService service;
 
-	@Autowired
-	public QualificatifController(QualificatifService service) {
-		this.service = service;
-	}
-	
 	// fonction qui retourne tous les qualificatifs
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping
 	public List<Qualificatif> getAllQualificatifs() {
 		return service.getAllQualificatifs();
 	}
 
-	@RequestMapping(value = "/liste", method = RequestMethod.GET)
-	public List<Qualificatif> ggetAllQualificatifs() {
-		return service.getAllQualificatifs();
+	@GetMapping(value="/{id}")
+	public Qualificatif getQualificatifById(@PathVariable("id") Integer id) {
+		return service.findQualificatifById(id);
 	}
 	
 	// fonction qui crée un qualificatif  
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping(value = "/createQual")
 	public Qualificatif createQualificatif(@RequestBody Qualificatif qualificatif) {
 		return service.createQualificatif(qualificatif);
 
 	}
 
 	// fonction qui modifie un qualificatif 
-	@RequestMapping(method = RequestMethod.PUT)
+	@PutMapping(value = "/updateQual")
 	public Qualificatif updateQualificatif(@RequestBody Qualificatif qualificatif) {
 		return service.updateQualificatif(qualificatif);
 	}
 	
 	// fonction qui supprime un qualificatif
-	@RequestMapping(method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteQualificatifById(@RequestBody Qualificatif qualificatif) {
+	@PostMapping(value = "/deleteQual")
+	public boolean deleteQualificatifById(@RequestBody Qualificatif qualificatif) {
 		
 		Integer id = (int) (long) qualificatif.getIdQualificatif();
 		if (!service.findIfIdQualificatifExistsInReponse(id) ){
-			HttpHeaders responseHeaders = new HttpHeaders();
-			responseHeaders.set("Contenu", "Le Qualificatif est utilisé dans une question !");
-			service.deleteQualificatif(id);
-			return (ResponseEntity<?>) ResponseEntity.ok().headers(responseHeaders).build();
+			//HttpHeaders responseHeaders = new HttpHeaders();
+			//responseHeaders.set("Contenu", "Le Qualificatif est utilisé dans une question !");
+			//service.deleteQualificatif(id);
+			throw new RuntimeException("Ce qualificatif est utilisé dans une question");
 		} else {
 			service.deleteQualificatif(id);
-			return ResponseEntity.ok().build();
+			return true;
 		}
 	}	
 	
