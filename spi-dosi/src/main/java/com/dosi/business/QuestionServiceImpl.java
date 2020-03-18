@@ -58,14 +58,8 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	@Override
-	public boolean deleteQuestion(Integer idQuestion) {
-		boolean test = false;
-		
-		if(questionRepository.countQuestionQualificatifEvaluation(idQuestion)==0) {
-			questionRepository.deleteById(Long.valueOf(idQuestion));
-			test = true;
-		}
-		return test;
+	public void deleteQuestion(Integer idQuestion) {
+		questionRepository.deleteById(Long.valueOf(idQuestion));
 	}
 
 	@Override

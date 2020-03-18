@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,50 +35,64 @@ public class QuestionController {
 	public List<Question> getAllQuestions() {
 		return service.getAllQuestions();
 	}
-
-
+	
 	// fonction qui ajoute une question
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> createQuestion(@RequestBody Question question) {
-		String reponse = "";
+	public String createQuestion(@RequestBody Question question) {
 		
-		if(service.updateQuestion(question)) {
-			reponse = "Ajout effectué avec succées";
+		try {
+			String reponse = "";
+			
+			if(service.createQuestion(question)) {
+				reponse = "Ajout effectué avec succès";
+			}
+			else
+				reponse = "Ajout non effectué : L'intitulé doit être unique !";
+			
+			return reponse; 
 		}
-		else
-			reponse = "Ajout non effectué : L'intitulé doit être unique !";
-
-		return ResponseEntity.accepted().body(reponse);
+		catch (Exception e) {
+			
+			return "Ajout non effectué !"; 
+		}
 	}
 	
 	// fonction qui modifie une question
 	@RequestMapping(method = RequestMethod.PUT) 
-	public ResponseEntity<?> updateQuestion(@RequestBody Question question) {
-		
-		String reponse = "";
-		
-		if(service.updateQuestion(question)) {
-			reponse = "Modification effectuée avec succées";
-		}
-		else
-			reponse = "Modification non effectuée : L'intitulé doit être unique !";
+	public String updateQuestion(@RequestBody Question question) {
+				
+		try {
+			String reponse = "";
+			
+			if(service.updateQuestion(question)) {
+				reponse = "Modification effectuée avec succées";
+			}
+			else
+				reponse = "Modification non effectuée : L'intitulé doit être unique !";
 
-		return ResponseEntity.accepted().body(reponse); 
+			return reponse; 
+		}
+		catch (Exception e) {
+			
+			return "Modification non effectuée !"; 
+		}
 	}
 	
-	// fonction qui modifie une question
+	// fonction qui supprime une question
 	@RequestMapping(method = RequestMethod.DELETE) 
-	public ResponseEntity<?> deleteQuestion(@RequestBody Question question) {
-		
-		String reponse = "";
-		
-		if(service.deleteQuestion((int)(long)question.getIdQuestion())) {
-			reponse = "Suppression effectuée avec succées";
-		}
-		else
-			reponse = "Suppression non effectuée : La question est déja utilisée !";
+	public String deleteQuestion(@RequestBody Question question) {
+	
+		try {
 
-		return ResponseEntity.accepted().body(reponse); 
+			service.deleteQuestion((int)(long)question.getIdQuestion());
+		
+			return "Suppression effectuée avec succès"; 
+		}
+		catch (Exception e) {
+			
+			return "Suppression non effectuée !"; 
+		}
+		
 	}
 	
 }

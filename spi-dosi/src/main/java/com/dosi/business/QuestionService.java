@@ -19,7 +19,7 @@ public interface QuestionService {
 	public boolean updateQuestion(Question suestion);
 	
 	// fonction qui supprime un Question
-	boolean deleteQuestion(Integer idQuestion);
+	void deleteQuestion(Integer idQuestion);
 
 	// fonction qui cherche un Question
 	public Question findQuestionById(Integer idQuestion);
