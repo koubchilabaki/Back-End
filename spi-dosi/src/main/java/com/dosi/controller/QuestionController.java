@@ -22,13 +22,14 @@ import com.dosi.models.Question;
 @CrossOrigin
 @RequestMapping("/questions")
 public class QuestionController {
+	
 	@Autowired
 	private QuestionService service;
 
 	
-	public QuestionController(QuestionService service) {
-		this.service = service;
-	}
+//	public QuestionController(QuestionService service) {
+//		this.service = service;
+//	}
 	
 	// fonction qui retourne tous les questions
 	@RequestMapping(method = RequestMethod.GET)

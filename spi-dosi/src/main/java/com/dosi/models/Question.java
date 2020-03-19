@@ -38,22 +38,6 @@ public class Question implements Serializable {
 	public Question() {
 	}
 
-	public Question(String intitule, String type, Enseignant enseignantt, Qualificatif qualificatif) {
-		super();
-		this.intitule = intitule;
-		this.type = type;
-		this.enseignantt = enseignantt;
-		this.qualificatif = qualificatif;
-	}
-
-	public Question(long idQuestion, String intitule, String type, Enseignant enseignantt, Qualificatif qualificatiff) {
-		super();
-		this.idQuestion = idQuestion;
-		this.intitule = intitule;
-		this.type = type;
-		this.enseignantt = enseignantt;
-		this.qualificatif = qualificatif;
-	}
 
 	public long getIdQuestion() {
 		return this.idQuestion;
@@ -88,7 +72,6 @@ public class Question implements Serializable {
 	}
 
 	public Qualificatif getQualificatif() {
-		qualificatif.setIdQualificatif(2);
 		return this.qualificatif;
 	}
 
