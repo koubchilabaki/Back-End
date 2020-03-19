@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.websocket.server.PathParam;
 
+import org.apache.coyote.Response;
+import org.aspectj.runtime.internal.Conversions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,15 +50,21 @@ public class RubriqueController {
 		return rubriqueService.createRubrique(rubrique);
 
 	}
-	
-	@RequestMapping(path="/updateRubrique",method=RequestMethod.PUT)
-	public Rubrique updateRubrique(@RequestBody Rubrique rubrique) {
-		return rubriqueService.updateRubrique(rubrique);
-		
+
+	@RequestMapping(path = "/updateRubrique", method = RequestMethod.PUT)
+	public ResponseEntity updateRubrique(@RequestBody Rubrique rubrique) {
+
+		if (!rubriqueService.findIfIdRubriqueExistsInRbEvalRbQst(rubrique.getIdRubrique())) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Impossible de modifier la rubrique");
+		}
+
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(rubriqueService.updateRubrique(rubrique));
+
+
 	}
 	
     @RequestMapping(path="/deleteRubrique-{idRubrique}",method=RequestMethod.DELETE)
-    public ResponseEntity<String> deleteRubrique(@PathVariable("idRubrique") Integer idRubrique) {
+    public ResponseEntity<String> deleteRubrique(@PathVariable("idRubrique") long idRubrique) {
     	
     	if(!rubriqueService.findIfIdRubriqueExistsInRbEvalRbQst(idRubrique)) {
     		
