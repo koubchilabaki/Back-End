@@ -79,7 +79,7 @@ public class QuestionController {
 	}
 	
 	// fonction qui supprime une question
-	@RequestMapping(method = RequestMethod.DELETE) 
+	@PostMapping("/deleteQuestion")
 	public String deleteQuestion(@RequestBody Question question) {
 	
 		try {
