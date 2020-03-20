@@ -42,8 +42,8 @@ public class RubriqueServiceImpl implements RubriqueService {
 	}
 
 	@Override
-	public void deleteRubrique(Integer idRubrique) {
-		Rubrique rubriqueDeleted = (Rubrique)rubriqueRepository.findById(Long.valueOf((idRubrique))).orElse(null);
+	public void deleteRubrique(long idRubrique) {
+		Rubrique rubriqueDeleted = rubriqueRepository.findById(idRubrique).get();
 		rubriqueRepository.delete(rubriqueDeleted);
 		
 	}
@@ -55,7 +55,7 @@ public class RubriqueServiceImpl implements RubriqueService {
 	}
 
 	@Override
-	public boolean findIfIdRubriqueExistsInRbEvalRbQst(Integer idRubrique) {
+	public boolean findIfIdRubriqueExistsInRbEvalRbQst(long idRubrique) {
 		
 		return rubriqueRepository.findIfIdRubriqueExistsInRbEvalRbQst(idRubrique).isEmpty();
 	}
