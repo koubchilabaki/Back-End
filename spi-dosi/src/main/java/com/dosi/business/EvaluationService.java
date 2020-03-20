@@ -1,0 +1,21 @@
+package com.dosi.business;
+
+import java.util.List;
+
+import com.dosi.models.Etudiant;
+import com.dosi.models.Evaluation;
+
+
+public interface EvaluationService {
+
+	public Evaluation createEvaluation(Evaluation evaluationCreate) throws Exception;
+
+	public List<Evaluation> getAllEvaluations();
+
+
+	public List<Evaluation> findByFormation(String code_formation);
+	
+	 public List<Evaluation> findByFormationAnne(String code, String annee);
+	
+	Evaluation getEvaluationById(int id);
+}
