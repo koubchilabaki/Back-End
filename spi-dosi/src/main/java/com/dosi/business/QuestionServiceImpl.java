@@ -26,14 +26,14 @@ public class QuestionServiceImpl implements QuestionService {
 	
 	@Override
 	public List<Question> getAllQuestions() {
-		return (List<Question>) questionRepository.findAll();
+		return (List<Question>) questionRepository.findAllOrdered();
 	}
-	
+
 	@Override
 	public List<Enseignant> getAllEnseignants(){
 		return (List<Enseignant>) enseignantRepository.findAll();
 	}
-	
+
 	@Override
 	public boolean createQuestion(Question question) {
 		boolean test = false;
