@@ -2,6 +2,8 @@ package com.dosi.controller;
 
 import java.util.List;
 import com.dosi.business.EvaluationService;
+import com.dosi.business.EvaluationServiceImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,11 @@ public class EvaluationController {
 	@Autowired
 	EvaluationService service;
 	
+	//affichage de tous les evaluations 
+		@RequestMapping(method = RequestMethod.GET)
+		public List<Evaluation> getAllEvaluations() {
+			return service.getAllEvaluations();
+		}
 	//ajout evaluation
 	@RequestMapping(value="/create",method = RequestMethod.POST)
 	public void creerEvaluation(@RequestBody Evaluation evaluationCreate) throws Exception {
@@ -26,16 +33,10 @@ public class EvaluationController {
 		
 	}
 	
-	//affichage de tous les evaluations 
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Evaluation> getAllEvaluations() {
-		return service.getAllEvaluations();
-	}
-	
 	
 	//affichage des evaluations par id
 	@RequestMapping(value="/{idEvaluation}" ,method = RequestMethod.GET)
-	public Evaluation getEvaluationById(@PathVariable("idEvaluation") int idEvaluation) {
+	public Evaluation getEvaluationById(@PathVariable("idEvaluation") Long idEvaluation) {
 		return service.getEvaluationById(idEvaluation);
 	}
 	
@@ -46,9 +47,9 @@ public class EvaluationController {
 			}
     
 	
-	//affichage des evaluation par code formation et annee universitaire
-			 //recherche
-			@RequestMapping(value="/findByAnneeCode/{Annee}/{code}", method = RequestMethod.GET)
+	//affichage des evaluations par code formation et annee universitaire
+			
+			@RequestMapping(value="/findByAnneeCodeFormation/{Annee}/{code}", method = RequestMethod.GET)
 			public List<Evaluation> findByFormationAnnee(@PathVariable("Annee") String annee, @PathVariable("code") String code) {
 				return service.findByFormationAnne(code,annee);
 

@@ -1,161 +1,263 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.dosi.models;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
-
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * The persistent class for the EVALUATION database table.
- * 
+ *
+ * @author DOSI
  */
 @Entity
-@NamedQuery(name="Evaluation.findAll", query="SELECT e FROM Evaluation e")
+@Table(name = "EVALUATION")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Evaluation.findAll", query = "SELECT e FROM Evaluation e")
+    , @NamedQuery(name = "Evaluation.findByIdEvaluation", query = "SELECT e FROM Evaluation e WHERE e.idEvaluation = :idEvaluation")
+    , @NamedQuery(name = "Evaluation.findByNoEvaluation", query = "SELECT e FROM Evaluation e WHERE e.noEvaluation = :noEvaluation")
+    , @NamedQuery(name = "Evaluation.findByDesignation", query = "SELECT e FROM Evaluation e WHERE e.designation = :designation")
+    , @NamedQuery(name = "Evaluation.findByEtat", query = "SELECT e FROM Evaluation e WHERE e.etat = :etat")
+    , @NamedQuery(name = "Evaluation.findByPeriode", query = "SELECT e FROM Evaluation e WHERE e.periode = :periode")
+    , @NamedQuery(name = "Evaluation.findByDebutReponse", query = "SELECT e FROM Evaluation e WHERE e.debutReponse = :debutReponse")
+    , @NamedQuery(name = "Evaluation.findByFinReponse", query = "SELECT e FROM Evaluation e WHERE e.finReponse = :finReponse")})
 public class Evaluation implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="ID_EVALUATION")
-	private long idEvaluation;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ID_EVALUATION")
+    private Long idEvaluation;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "NO_EVALUATION")
+    private short noEvaluation;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 16)
+    @Column(name = "DESIGNATION")
+    private String designation;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 3)
+    @Column(name = "ETAT")
+    private String etat;
+    @Size(max = 64)
+    @Column(name = "PERIODE")
+    private String periode;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "DEBUT_REPONSE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date debutReponse;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "FIN_REPONSE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date finReponse;
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "evaluation")
+   // private Collection<Droit> droitCollection;
+    @JoinColumns({
+        @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION", insertable=false, updatable=false)
+        , @JoinColumn(name = "CODE_UE", referencedColumnName = "CODE_UE", insertable=false, updatable=false)
+        , @JoinColumn(name = "CODE_EC", referencedColumnName = "CODE_EC", insertable=false, updatable=false)})
+    @ManyToOne(optional = false)
+    private ElementConstitutif elementConstitutif;
+    @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT", insertable=false, updatable=false)
+    @ManyToOne(optional = false)
+    private Enseignant noEnseignant;
+    @JoinColumns({
+        @JoinColumn(name = "ANNEE_UNIVERSITAIRE", referencedColumnName = "ANNEE_UNIVERSITAIRE", insertable=false, updatable=false)
+        , @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION", insertable=false, updatable=false)})
+    @ManyToOne(optional = false)
+    private Promotion promotion;
+    @JoinColumns({
+        @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION", insertable=false, updatable=false)
+        , @JoinColumn(name = "CODE_UE", referencedColumnName = "CODE_UE", insertable=false, updatable=false)})
+    @ManyToOne(optional = false)
+    private UniteEnseignement uniteEnseignement;
+   /* @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvaluation")
+    private Collection<RubriqueEvaluation> rubriqueEvaluationCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvaluation")
+    private Collection<ReponseEvaluation> reponseEvaluationCollection*/;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="DEBUT_REPONSE")
-	private Date debutReponse;
+    public Evaluation() {
+    }
 
-	private String designation;
+    public Evaluation(Long idEvaluation) {
+        this.idEvaluation = idEvaluation;
+    }
 
-	private String etat;
+    public Evaluation(Long idEvaluation, short noEvaluation, String designation, String etat, Date debutReponse, Date finReponse) {
+        this.idEvaluation = idEvaluation;
+        this.noEvaluation = noEvaluation;
+        this.designation = designation;
+        this.etat = etat;
+        this.debutReponse = debutReponse;
+        this.finReponse = finReponse;
+    }
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="FIN_REPONSE")
-	private Date finReponse;
+    public Long getIdEvaluation() {
+        return idEvaluation;
+    }
 
-	@Column(name="NO_EVALUATION")
-	private BigDecimal noEvaluation;
+    public void setIdEvaluation(Long idEvaluation) {
+        this.idEvaluation = idEvaluation;
+    }
 
-	private String periode;
+    public short getNoEvaluation() {
+        return noEvaluation;
+    }
 
-	//uni-directional many-to-one association to ElementConstitutif
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="CODE_EC", referencedColumnName="CODE_EC", insertable=false, updatable=false),
-		@JoinColumn(name="CODE_FORMATION", referencedColumnName="CODE_FORMATION", insertable=false, updatable=false),
-		@JoinColumn(name="CODE_UE", referencedColumnName="CODE_UE", insertable=false, updatable=false)
-		})
-	private ElementConstitutif elementConstitutiff;
+    public void setNoEvaluation(short noEvaluation) {
+        this.noEvaluation = noEvaluation;
+    }
 
-	//uni-directional many-to-one association to Enseignant
-	@ManyToOne
-	@JoinColumn(name="NO_ENSEIGNANT", insertable=false, updatable=false)
-	private Enseignant enseignantt;
+    public String getDesignation() {
+        return designation;
+    }
 
-	//uni-directional many-to-one association to Promotion
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="ANNEE_UNIVERSITAIRE", referencedColumnName="ANNEE_UNIVERSITAIRE", insertable=false, updatable=false),
-		@JoinColumn(name="CODE_FORMATION", referencedColumnName="CODE_FORMATION", insertable=false, updatable=false)
-		})
-	private Promotion promotionn;
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
 
-	//bi-directional many-to-one association to UniteEnseignement
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="CODE_FORMATION", referencedColumnName="CODE_FORMATION", insertable=false, updatable=false),
-		@JoinColumn(name="CODE_UE", referencedColumnName="CODE_UE", insertable=false, updatable=false)
-		})
-	private UniteEnseignement uniteEnseignementt;
+    public String getEtat() {
+        return etat;
+    }
 
-	public Evaluation() {
-	}
+    public void setEtat(String etat) {
+        this.etat = etat;
+    }
 
-	public long getIdEvaluation() {
-		return this.idEvaluation;
-	}
+    public String getPeriode() {
+        return periode;
+    }
 
-	public void setIdEvaluation(long idEvaluation) {
-		this.idEvaluation = idEvaluation;
-	}
+    public void setPeriode(String periode) {
+        this.periode = periode;
+    }
 
-	public Date getDebutReponse() {
-		return this.debutReponse;
-	}
+    public Date getDebutReponse() {
+        return debutReponse;
+    }
 
-	public void setDebutReponse(Date debutReponse) {
-		this.debutReponse = debutReponse;
-	}
+    public void setDebutReponse(Date debutReponse) {
+        this.debutReponse = debutReponse;
+    }
 
-	public String getDesignation() {
-		return this.designation;
-	}
+    public Date getFinReponse() {
+        return finReponse;
+    }
 
-	public void setDesignation(String designation) {
-		this.designation = designation;
-	}
+    public void setFinReponse(Date finReponse) {
+        this.finReponse = finReponse;
+    }
 
-	public String getEtat() {
-		return this.etat;
-	}
+   /* @XmlTransient
+    public Collection<Droit> getDroitCollection() {
+        return droitCollection;
+    }
 
-	public void setEtat(String etat) {
-		this.etat = etat;
-	}
+    public void setDroitCollection(Collection<Droit> droitCollection) {
+        this.droitCollection = droitCollection;
+    }*/
 
-	public Date getFinReponse() {
-		return this.finReponse;
-	}
+    public ElementConstitutif getElementConstitutif() {
+        return elementConstitutif;
+    }
 
-	public void setFinReponse(Date finReponse) {
-		this.finReponse = finReponse;
-	}
+    public void setElementConstitutif(ElementConstitutif elementConstitutif) {
+        this.elementConstitutif = elementConstitutif;
+    }
 
-	public BigDecimal getNoEvaluation() {
-		return this.noEvaluation;
-	}
+    public Enseignant getNoEnseignant() {
+        return noEnseignant;
+    }
 
-	public void setNoEvaluation(BigDecimal noEvaluation) {
-		this.noEvaluation = noEvaluation;
-	}
+    public void setNoEnseignant(Enseignant noEnseignant) {
+        this.noEnseignant = noEnseignant;
+    }
 
-	public String getPeriode() {
-		return this.periode;
-	}
+    public Promotion getPromotion() {
+        return promotion;
+    }
 
-	public void setPeriode(String periode) {
-		this.periode = periode;
-	}
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
+    }
 
-	public ElementConstitutif getElementConstitutiff() {
-		return this.elementConstitutiff;
-	}
+    public UniteEnseignement getUniteEnseignement() {
+        return uniteEnseignement;
+    }
 
-	public void setElementConstitutiff(ElementConstitutif elementConstitutiff) {
-		this.elementConstitutiff = elementConstitutiff;
-	}
+    public void setUniteEnseignement(UniteEnseignement uniteEnseignement) {
+        this.uniteEnseignement = uniteEnseignement;
+    }
 
-	public Enseignant getEnseignantt() {
-		return this.enseignantt;
-	}
+   /* @XmlTransient
+    public Collection<RubriqueEvaluation> getRubriqueEvaluationCollection() {
+        return rubriqueEvaluationCollection;
+    }
 
-	public void setEnseignantt(Enseignant enseignantt) {
-		this.enseignantt = enseignantt;
-	}
+    public void setRubriqueEvaluationCollection(Collection<RubriqueEvaluation> rubriqueEvaluationCollection) {
+        this.rubriqueEvaluationCollection = rubriqueEvaluationCollection;
+    }*/
 
-	public Promotion getPromotionn() {
-		return this.promotionn;
-	}
+    /*@XmlTransient
+    public Collection<ReponseEvaluation> getReponseEvaluationCollection() {
+        return reponseEvaluationCollection;
+    }
 
-	public void setPromotionn(Promotion promotionn) {
-		this.promotionn = promotionn;
-	}
+    public void setReponseEvaluationCollection(Collection<ReponseEvaluation> reponseEvaluationCollection) {
+        this.reponseEvaluationCollection = reponseEvaluationCollection;
+    }*/
 
-	public UniteEnseignement getUniteEnseignementt() {
-		return this.uniteEnseignementt;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idEvaluation != null ? idEvaluation.hashCode() : 0);
+        return hash;
+    }
 
-	public void setUniteEnseignementt(UniteEnseignement uniteEnseignementt) {
-		this.uniteEnseignementt = uniteEnseignementt;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Evaluation)) {
+            return false;
+        }
+        Evaluation other = (Evaluation) object;
+        if ((this.idEvaluation == null && other.idEvaluation != null) || (this.idEvaluation != null && !this.idEvaluation.equals(other.idEvaluation))) {
+            return false;
+        }
+        return true;
+    }
 
+    @Override
+    public String toString() {
+        return "model.Evaluation[ idEvaluation=" + idEvaluation + " ]";
+    }
+    
 }

@@ -35,7 +35,7 @@ public class UniteEnseignement implements Serializable {
 	private String semestre;
 
 	//bi-directional many-to-one association to Evaluation
-	@OneToMany(mappedBy="uniteEnseignementt")
+	@OneToMany(mappedBy="uniteEnseignement")
 	private List<Evaluation> evaluations;
 
 	//uni-directional many-to-one association to Enseignant
@@ -117,19 +117,19 @@ public class UniteEnseignement implements Serializable {
 
 	public Evaluation addEvaluation(Evaluation evaluation) {
 		getEvaluations().add(evaluation);
-		evaluation.setUniteEnseignementt(this);
+		evaluation.setUniteEnseignement(this);
 
 		return evaluation;
 	}
 
 	public Evaluation removeEvaluation(Evaluation evaluation) {
 		getEvaluations().remove(evaluation);
-		evaluation.setUniteEnseignementt(null);
+		evaluation.setUniteEnseignement(null);
 
 		return evaluation;
 	}
 
-	public Enseignant getEnseignantt() {
+	public Enseignant getEnseignant() {
 		return this.enseignantt;
 	}
 

@@ -29,7 +29,7 @@ public class EvaluationServiceImpl implements EvaluationService{
 
 
 	@Override
-	public Evaluation getEvaluationById(int id) {
+	public Evaluation getEvaluationById(Long id) {
 		return evaluationRepository.findById(id).orElse(null);
 	}
 
