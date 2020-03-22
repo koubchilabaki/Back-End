@@ -17,14 +17,14 @@ public interface RubriqueService {
 		public Rubrique updateRubrique(Rubrique rubrique);
 		
 		// fonction qui supprime un rubrique
-		void deleteRubrique(Integer idRubrique);
+		void deleteRubrique(long idRubrique);
 
 		// fonction qui cherche un rubrique
 		public Rubrique findRubriqueById(Integer idRubrique);
 
 
 		// fonction qui vérifie si un rubrique exsite dans une evaluation 
-		public boolean findIfIdRubriqueExistsInRbEvalRbQst(Integer idRubrique);
+		public boolean findIfIdRubriqueExistsInRbEvalRbQst(long idRubrique);
 		
 		
 		public List<Rubrique> findRubriqueByDesignation(String designation);

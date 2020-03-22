@@ -15,6 +15,10 @@ import com.dosi.models.Question;
 
 public interface QuestionRepository extends CrudRepository<Question, Long> {
 
+	
+	@Query(value="select question.* from question order by intitule asc", nativeQuery = true)
+	List<Question> findAllOrdered();
+	
 	@Query(value="select count(*) from question where intitule = ?1", nativeQuery = true)
 	int countIntituleQuestion(String intitule);
 	
