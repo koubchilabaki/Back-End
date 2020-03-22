@@ -60,7 +60,7 @@ public class RubriqueController {
     	
     	if(!rubriqueService.findIfIdRubriqueExistsInRbEvalRbQst(idRubrique)) {
     		
-    		return new ResponseEntity<String>("Impossible de supprimer la rubrique",HttpStatus.BAD_REQUEST);
+    		return new ResponseEntity<String>("Impossible de supprimer la rubrique",HttpStatus.OK);
     	}else {
     		rubriqueService.deleteRubrique(idRubrique);
     		return new ResponseEntity<String>("Suppression reussite",HttpStatus.OK);
