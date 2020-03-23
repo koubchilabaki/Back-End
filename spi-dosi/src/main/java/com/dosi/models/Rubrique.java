@@ -1,8 +1,11 @@
 package com.dosi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 
 /**
@@ -31,6 +34,9 @@ public class Rubrique implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="NO_ENSEIGNANT", insertable=false, updatable=false)
 	private Enseignant enseignantt;
+
+	@OneToMany(mappedBy = "rubriquee")
+	private List<RubriqueQuestion> rubriqueQuestions;
 
 	public Rubrique() {
 	}
@@ -75,4 +81,11 @@ public class Rubrique implements Serializable {
 		this.enseignantt = enseignantt;
 	}
 
+	public List<RubriqueQuestion> getRubriqueQuestions() {
+		return rubriqueQuestions;
+	}
+
+	public void setRubriqueQuestions(List<RubriqueQuestion> rubriqueQuestions) {
+		this.rubriqueQuestions = rubriqueQuestions;
+	}
 }
