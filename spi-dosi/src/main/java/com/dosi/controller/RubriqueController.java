@@ -44,6 +44,14 @@ public class RubriqueController {
 		return rubriqueService.findRubriqueByDesignation(designation);
 		
 	}
+
+	@RequestMapping(path="/{idRubrique}",method=RequestMethod.GET)
+	public Rubrique getByDesignation(@PathVariable("idRubrique") int idRubrique){
+		return rubriqueService.findRubriqueById(idRubrique);
+
+	}
+
+
 	
 	@RequestMapping(path="/CreateRubrique",method=RequestMethod.POST)
 	public Rubrique createRubrique(@RequestBody Rubrique rubrique) {
