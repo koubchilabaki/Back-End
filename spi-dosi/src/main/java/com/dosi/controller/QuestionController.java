@@ -66,7 +66,7 @@ public class QuestionController {
 			String reponse = "";
 			
 			if(service.updateQuestion(question)) {
-				reponse = "Modification effectuée avec succées";
+				reponse = "Modification effectuée avec succès";
 			}
 			else
 				reponse = "Modification non effectuée : L'intitulé doit être unique !";

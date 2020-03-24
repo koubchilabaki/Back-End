@@ -1,5 +1,7 @@
 package com.dosi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -28,6 +30,7 @@ public class RubriqueQuestion implements Serializable {
 	//uni-directional many-to-one association to Rubrique
 	@ManyToOne
 	@JoinColumn(name="ID_RUBRIQUE", insertable=false, updatable=false)
+	@JsonIgnoreProperties("rubriqueQuestions")
 	private Rubrique rubriquee;
 
 	public RubriqueQuestion() {
