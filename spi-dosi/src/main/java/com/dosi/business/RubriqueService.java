@@ -20,7 +20,7 @@ public interface RubriqueService {
 		void deleteRubrique(long idRubrique);
 
 		// fonction qui cherche un rubrique
-		public Rubrique findRubriqueById(Integer idRubrique);
+		public Rubrique findRubriqueById(long idRubrique);
 
 
 		// fonction qui vérifie si un rubrique exsite dans une evaluation 

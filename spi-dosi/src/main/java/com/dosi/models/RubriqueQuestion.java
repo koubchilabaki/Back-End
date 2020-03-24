@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name="RUBRIQUE_QUESTION")
 @NamedQuery(name="RubriqueQuestion.findAll", query="SELECT r FROM RubriqueQuestion r")
+@NamedQuery(name="RubriqueQuestion.findAllbyIdRubrique", query="SELECT r FROM RubriqueQuestion r where r.id.idRubrique= :idRubrique")
 public class RubriqueQuestion implements Serializable {
 	private static final long serialVersionUID = 1L;
 

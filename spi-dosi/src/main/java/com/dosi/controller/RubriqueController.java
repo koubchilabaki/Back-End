@@ -77,6 +77,11 @@ public class RubriqueController {
     	
     }
 	
+	@RequestMapping(path="/{idRubrique}", method=RequestMethod.GET)
+	public Rubrique getAllRubrique(@PathVariable("idRubrique") long idRubrique)
+	{
+		return rubriqueService.findRubriqueById(idRubrique);
+	}	
 	
 	
 

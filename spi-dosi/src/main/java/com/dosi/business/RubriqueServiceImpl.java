@@ -49,7 +49,7 @@ public class RubriqueServiceImpl implements RubriqueService {
 	}
 
 	@Override
-	public Rubrique findRubriqueById(Integer idRubrique) {
+	public Rubrique findRubriqueById(long idRubrique) {
 		Rubrique rubrique = (Rubrique)rubriqueRepository.findById(Long.valueOf((idRubrique))).orElse(null);
 		return rubrique;
 	}
