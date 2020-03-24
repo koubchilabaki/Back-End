@@ -9,7 +9,7 @@ import com.dosi.models.Etudiant;
 import com.dosi.models.Evaluation;
 
 
-public interface EvaluationReository extends CrudRepository<Evaluation, Long> {
+public interface EvaluationRepository extends CrudRepository<Evaluation, Long> {
 
 		//recherche par formation
 	@Query(value= "SELECT * from EVALUATION where evaluation.code_formation=?1 ", nativeQuery=true)
