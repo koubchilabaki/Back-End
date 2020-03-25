@@ -36,5 +36,10 @@ public class RubriqueQuestionServiceImpl implements RubriqueQuestionService {
 		return this.questionRepository.findNotUsedInRubrique(idRubrique);
 	}
 
+	@Override
+	public void deleteRubriqueQuestion(RubriqueQuestion entity) {
+		
+		this.RubriqueQuestionRepository.delete(entity);
+	} 
 
 }

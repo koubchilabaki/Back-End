@@ -116,4 +116,18 @@ public class RubriqueController {
     	return this.rubriqueQuestionService.getAllQuestion(idRubrique);
     }
     
+    @RequestMapping(path="/deleteRubriqueQuestion",method=RequestMethod.POST)
+    public ResponseEntity<String> deleteRubriqueQuestion(@RequestBody  RubriqueQuestion rubriqueQuestion) {
+    	
+    
+    	this.rubriqueQuestionService.deleteRubriqueQuestion(rubriqueQuestion);
+    	
+    	
+    	return new ResponseEntity<String>("Suppression reussite",HttpStatus.OK);
+    	    
+    	}
+    	
+    
+    
+    
 }

@@ -15,5 +15,7 @@ public interface RubriqueQuestionService {
 	public void saveRubriqueQuestion (List<RubriqueQuestion> L );
 	
 	public List<Question> findNotUsedInRubrique(long idRubrique);
+	
+	public  void deleteRubriqueQuestion(RubriqueQuestion entity);
 
 }
