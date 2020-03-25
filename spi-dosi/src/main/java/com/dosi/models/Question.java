@@ -10,6 +10,8 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQuery(name="Question.findAll", query="SELECT q FROM Question q")
+@NamedQuery(name="Question.findNotUsedInRubrique", query="SELECT q FROM Question q where q.idQuestion not in ( SELECT r.id.idQuestion FROM RubriqueQuestion r where r.id.idRubrique= :idRubrique )")
+
 
 public class Question implements Serializable {
 	private static final long serialVersionUID = 1L;

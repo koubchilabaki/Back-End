@@ -37,6 +37,7 @@ public class RubriqueServiceImpl implements RubriqueService {
 		 Rubrique rubriqueUpdate = (Rubrique)rubriqueRepository.findById(Long.valueOf((rubrique.getIdRubrique()))).orElse(null);
 		 rubriqueUpdate.setDesignation(rubrique.getDesignation());
 		 rubriqueUpdate.setType(rubrique.getType());
+		 rubriqueUpdate.setRubriqueQuestions(rubrique.getRubriqueQuestions());
 		 rubriqueRepository.save(rubriqueUpdate);
 		 return rubriqueUpdate;
 	}
