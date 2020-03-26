@@ -23,7 +23,7 @@ public interface QuestionRepository extends CrudRepository<Question, Long> {
 	int countIntituleQuestion(String intitule);
 	
 	@Query(value="\n" + 
-			"select count(q.id_question) from question q,qualificatif ql, question_evaluation e where ql.id_qualificatif=q.id_qualificatif and q.id_question=e.id_question and q.id_question=?1\n" + 
+			"select count(q.id_question) from question q, question_evaluation e where q.id_question=e.id_question and q.id_question=?1\n" + 
 			"", nativeQuery = true)
 	int countQuestionQualificatifEvaluation(int idQuestion);
 	

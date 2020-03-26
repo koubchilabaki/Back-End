@@ -26,19 +26,28 @@ public class QualificatifServiceImpl implements QualificatifService {
 	}
 
 	@Override
-	public Qualificatif createQualificatif(Qualificatif qualificatif) {
+	public boolean createQualificatif(Qualificatif qualificatif) {
 		// TODO Auto-generated method stub
-		return qualificatifRepository.save(qualificatif);
+		boolean test = false; 
+		if(qualificatifRepository.countMinimalMaximalQualificatif(qualificatif.getMinimal(),qualificatif.getMaximal())==0) {
+			qualificatifRepository.save(qualificatif);
+			test = true;
+		}
+
+		return test;
 	}
 
 	@Override
-	public Qualificatif updateQualificatif(Qualificatif qualificatif) {
+	public boolean updateQualificatif(Qualificatif qualificatif) {
 		// TODO Auto-generated method stub
-		Qualificatif lequalificatif = (Qualificatif) qualificatifRepository.findById(Long.valueOf(qualificatif.getIdQualificatif())).orElse(null);
-		lequalificatif.setMaximal(qualificatif.getMaximal());
-		lequalificatif.setMinimal(qualificatif.getMinimal());
-		qualificatifRepository.save(lequalificatif);
-		return lequalificatif;
+		boolean test = false;
+		int idQualificatif=(int)qualificatif.getIdQualificatif();  
+		if(qualificatifRepository.countIfIdQualificatifInQuestion(idQualificatif)==0) {
+			qualificatifRepository.save(qualificatif);
+			test = true;
+		}
+
+		return test;
 	}
 
 	@Override

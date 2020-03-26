@@ -49,7 +49,9 @@ public class QuestionServiceImpl implements QuestionService {
 	public boolean updateQuestion(Question question) {
 		boolean test = false;
 		
-		if(questionRepository.countIntituleQuestion(question.getIntitule())<=1) {
+		int idQuestion=(int)question.getIdQuestion();  
+		
+		if( questionRepository.countIntituleQuestion(question.getIntitule())<=1 && questionRepository.countQuestionQualificatifEvaluation(idQuestion)==0)  {
 			questionRepository.save(question);
 			test = true;
 		}
