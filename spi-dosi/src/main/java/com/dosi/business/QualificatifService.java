@@ -9,10 +9,10 @@ public interface QualificatifService {
 	public List<Qualificatif> getAllQualificatifs();
 
 	// fonction qui crée un qualificatif
-	public Qualificatif createQualificatif(Qualificatif qualificatif);
+	public boolean createQualificatif(Qualificatif qualificatif);
 	
 	// fonction qui modifie un qualificatif
-	public Qualificatif updateQualificatif(Qualificatif qualificatif);
+	public boolean updateQualificatif(Qualificatif qualificatif);
 	
 	// fonction qui supprime un qualificatif
 	void deleteQualificatif(Integer idQualificatif);

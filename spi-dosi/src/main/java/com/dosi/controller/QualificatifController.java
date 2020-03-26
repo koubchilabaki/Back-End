@@ -46,8 +46,10 @@ public class QualificatifController {
 	public String createQualificatif(@RequestBody Qualificatif qualificatif) {
 
 		try {
-			service.createQualificatif(qualificatif);
-			return "Ajout effectué avec succès";
+			if(service.createQualificatif(qualificatif))
+				return "Ajout effectué avec succès !"; 
+			else
+				return "Ajout non effectué !"; 
 		}
 		catch (Exception e) {
 			
@@ -60,8 +62,10 @@ public class QualificatifController {
 	public String updateQualificatif(@RequestBody Qualificatif qualificatif) {
 		
 		try {
-			service.updateQualificatif(qualificatif);
-			return "Modification effectuée avec succès !"; 
+			if(service.updateQualificatif(qualificatif))
+				return "Modification effectuée avec succès !"; 
+			else
+				return "Modification non effectuée !";
 		}
 		catch (Exception e) {
 			

@@ -19,4 +19,7 @@ public interface QualificatifRepository extends CrudRepository<Qualificatif, Lon
 	
 	@Query(value="SELECT COUNT(q.ID_QUALIFICATIF) FROM question q where q.ID_QUALIFICATIF = ?1", nativeQuery = true)
 	int countIfIdQualificatifInQuestion(int idQualificatif);
+	
+	@Query(value="select count(*) from qualificatif where minimal = ?1 and maximal = ?2", nativeQuery = true)
+	int countMinimalMaximalQualificatif(String minimal,String maximal);
 }
