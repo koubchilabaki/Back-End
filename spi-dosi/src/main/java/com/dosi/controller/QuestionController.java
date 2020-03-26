@@ -69,7 +69,7 @@ public class QuestionController {
 				reponse = "Modification effectuée avec succès";
 			}
 			else
-				reponse = "Modification non effectuée : L'intitulé doit être unique !";
+				reponse = "Modification non effectuée !";
 
 			return reponse; 
 		}
@@ -86,7 +86,7 @@ public class QuestionController {
 		try {
 
 			service.deleteQuestion((int)(long)question.getIdQuestion());
-		
+			
 			return "Suppression effectuée avec succès"; 
 		}
 		catch (Exception e) {
