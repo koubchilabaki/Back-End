@@ -16,22 +16,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dosi.business.RubriqueQuestionService;
 import com.dosi.business.RubriqueService;
-
+import com.dosi.models.Question;
 import com.dosi.models.Rubrique;
+import com.dosi.models.RubriqueQuestion;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/rubriques")
 public class RubriqueController {
 	
-	public RubriqueService rubriqueService;
- 
 	@Autowired
-	public RubriqueController(RubriqueService rubriqueService) {
-		super();
-		this.rubriqueService = rubriqueService;
-	}
+	public RubriqueService rubriqueService;
+	
+	@Autowired
+	public RubriqueQuestionService rubriqueQuestionService;
+	
+ 
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public List<Rubrique> getAllRubrique()
@@ -46,7 +48,7 @@ public class RubriqueController {
 	}
 
 	@RequestMapping(path="/{idRubrique}",method=RequestMethod.GET)
-	public Rubrique getByDesignation(@PathVariable("idRubrique") int idRubrique){
+	public Rubrique getById(@PathVariable("idRubrique") int idRubrique){
 		return rubriqueService.findRubriqueById(idRubrique);
 
 	}
@@ -84,8 +86,48 @@ public class RubriqueController {
     	}
     	
     }
-	
-	
-	
+    
+	/*
+	@RequestMapping(path="/{idRubrique}", method=RequestMethod.GET)
+	public Rubrique getRubrique(@PathVariable("idRubrique") long idRubrique)
+	{
+		return rubriqueService.findRubriqueById(idRubrique);
+	}	
+	*/
+    
+    @RequestMapping(path="/QuestionNonUtiliseDansrubrique-{idRubrique}",method=RequestMethod.GET)
+    public List<Question> getQuestionNonUtilise(@PathVariable("idRubrique") long idRubrique)
+    {
+    	return this.rubriqueQuestionService.findNotUsedInRubrique(idRubrique);
+    }
 
+    @RequestMapping(path = "/updateRubriqueQuestion", method = RequestMethod.PUT)
+	public ResponseEntity<String> updateRubriqueQuestion(@RequestBody List<RubriqueQuestion> rubriqueQuestion) {
+
+
+		this.rubriqueQuestionService.saveRubriqueQuestion(rubriqueQuestion);
+		return new ResponseEntity<String>("la rubrique a été bien  modifier",HttpStatus.OK);
+
+	}
+    
+    @RequestMapping(path="/rubriqueQuestion/{idRubrique}",method=RequestMethod.GET)
+    public List<RubriqueQuestion> getRubriqueQuestion(@PathVariable("idRubrique") long idRubrique)
+    {
+    	return this.rubriqueQuestionService.getAllQuestion(idRubrique);
+    }
+    
+    @RequestMapping(path="/deleteRubriqueQuestion",method=RequestMethod.POST)
+    public ResponseEntity<String> deleteRubriqueQuestion(@RequestBody  RubriqueQuestion rubriqueQuestion) {
+    	
+    
+    	this.rubriqueQuestionService.deleteRubriqueQuestion(rubriqueQuestion);
+    	
+    	
+    	return new ResponseEntity<String>("Suppression reussite",HttpStatus.OK);
+    	    
+    	}
+    	
+    
+    
+    
 }

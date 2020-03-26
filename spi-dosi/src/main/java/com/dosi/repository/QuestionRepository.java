@@ -27,5 +27,7 @@ public interface QuestionRepository extends CrudRepository<Question, Long> {
 			"", nativeQuery = true)
 	int countQuestionQualificatifEvaluation(int idQuestion);
 	
+	List<Question> findNotUsedInRubrique(@Param("idRubrique") long idRubrique);
+	
 
 }

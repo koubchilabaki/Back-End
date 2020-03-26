@@ -37,6 +37,7 @@ public class RubriqueServiceImpl implements RubriqueService {
 		 Rubrique rubriqueUpdate = (Rubrique)rubriqueRepository.findById(Long.valueOf((rubrique.getIdRubrique()))).orElse(null);
 		 rubriqueUpdate.setDesignation(rubrique.getDesignation());
 		 rubriqueUpdate.setType(rubrique.getType());
+		 rubriqueUpdate.setRubriqueQuestions(rubrique.getRubriqueQuestions());
 		 rubriqueRepository.save(rubriqueUpdate);
 		 return rubriqueUpdate;
 	}
@@ -49,7 +50,7 @@ public class RubriqueServiceImpl implements RubriqueService {
 	}
 
 	@Override
-	public Rubrique findRubriqueById(Integer idRubrique) {
+	public Rubrique findRubriqueById(long idRubrique) {
 		Rubrique rubrique = (Rubrique)rubriqueRepository.findById(Long.valueOf((idRubrique))).orElse(null);
 		return rubrique;
 	}
