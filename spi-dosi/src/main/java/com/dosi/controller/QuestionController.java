@@ -43,12 +43,13 @@ public class QuestionController {
 		
 		try {
 			String reponse = "";
-			
-			if(service.createQuestion(question)) {
-				reponse = "Ajout effectué avec succès";
-			}
-			else
-				reponse = "Ajout non effectué : L'intitulé doit être unique !";
+
+			if (!question.getIntitule().matches("\\s*")) {
+				if (service.createQuestion(question)) {
+					reponse = "Ajout effectué avec succès";
+				} else
+					reponse = "Ajout non effectué : L'intitulé doit être unique !";
+			} else reponse="Le champs intutilé ne doit pas être vide";
 			
 			return reponse; 
 		}
