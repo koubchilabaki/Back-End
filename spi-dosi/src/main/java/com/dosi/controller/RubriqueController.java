@@ -81,7 +81,7 @@ public class RubriqueController {
     		return new ResponseEntity<String>("Impossible de supprimer la rubrique",HttpStatus.OK);
     	}else {
     		rubriqueService.deleteRubrique(idRubrique);
-    		return new ResponseEntity<String>("Suppression reussite",HttpStatus.OK);
+    		return new ResponseEntity<String>("Suppression effectuée avec succès",HttpStatus.OK);
     	    
     	}
     	
@@ -123,7 +123,7 @@ public class RubriqueController {
     	this.rubriqueQuestionService.deleteRubriqueQuestion(rubriqueQuestion);
     	
     	
-    	return new ResponseEntity<String>("Suppression reussite",HttpStatus.OK);
+			return new ResponseEntity<String>("Suppression effectuée avec succès ",HttpStatus.OK);
     	    
     	}
     	
