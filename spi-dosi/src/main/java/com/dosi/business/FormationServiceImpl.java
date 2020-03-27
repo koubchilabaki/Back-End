@@ -17,6 +17,6 @@ public class FormationServiceImpl implements FormationService {
 
 	@Override
 	public List<Formation> getAllFormations() {
-		return (List<Formation>) formationRepository.findAll();
+		return (List<Formation>) formationRepository.findAllOrdered();
 	}
 }
