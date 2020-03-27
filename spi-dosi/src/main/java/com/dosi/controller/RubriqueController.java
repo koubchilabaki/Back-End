@@ -106,7 +106,7 @@ public class RubriqueController {
 
 
 		this.rubriqueQuestionService.saveRubriqueQuestion(rubriqueQuestion);
-		return new ResponseEntity<String>("la rubrique a été bien  modifier",HttpStatus.OK);
+		return new ResponseEntity<String>("La rubrique a été bien modifiée",HttpStatus.OK);
 
 	}
     
